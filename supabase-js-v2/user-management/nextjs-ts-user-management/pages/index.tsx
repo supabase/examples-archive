@@ -30,7 +30,7 @@ export default function Home() {
         setSession(session);
       }
     );
-  }, [session]);
+  }, []);
 
   useEffect(() => {
     getPublicProfiles();
