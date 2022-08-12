@@ -13,7 +13,7 @@
 
 Tasks:
 
-- [ ] Migrate the current examples into this repo
+- [x] Migrate the current examples into this repo
 - [ ] Update the homepage "Examples" section to point to this repo
 - [ ] Update app.supabase.com examples
 - [ ] Remove the old /supabase/examples folder
