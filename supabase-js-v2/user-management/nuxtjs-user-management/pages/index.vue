@@ -8,9 +8,9 @@
       </div>
       <div class="col-6">
         <h3>Public Profiles</h3>
-        <div v-if="state.profiles.length > 0">
+        <template v-if="state.profiles.length > 0">
           <ProfileList :profiles="state.profiles" />
-        </div>
+        </template>
       </div>
     </div>
   </div>
