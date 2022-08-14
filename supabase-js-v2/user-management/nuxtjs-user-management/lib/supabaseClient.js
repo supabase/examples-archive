@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import {
   NUXT_PUBLIC_SUPABASE_URL,
-  NUXT_PUBLIC_SUPABASE_ANON_KEY
+  NUXT_PUBLIC_SUPABASE_ANON_KEY,
 } from "./constants";
 
 if (!NUXT_PUBLIC_SUPABASE_URL)
@@ -11,12 +11,5 @@ if (!NUXT_PUBLIC_SUPABASE_ANON_KEY)
 
 export const supabase = createClient(
   NUXT_PUBLIC_SUPABASE_URL,
-  NUXT_PUBLIC_SUPABASE_ANON_KEY,
-  {
-    auth: {
-      detectSessionInUrl: true,
-      persistSession: true,
-      storageKey: "supabase.auth.token"
-    }
-  }
+  NUXT_PUBLIC_SUPABASE_ANON_KEY
 );
