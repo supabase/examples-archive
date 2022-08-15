@@ -1,4 +1,4 @@
-# Supabase Next.js User Management
+# Supabase Create React App User Management
 
 This example will set you up for a very common situation: users can sign up with a magic link and then update their account with public profile information, including a profile image.
 
@@ -7,7 +7,7 @@ This demonstrates how to use:
 - User signups using Supabase [Auth](https://supabase.com/auth).
 - User avatar images using Supabase [Storage](https://supabase.com/storage).
 - Public profiles restricted with [Policies](https://supabase.com/docs/guides/auth#policies).
-- Frontend using [Next.js](<[nextjs.org/](https://nextjs.org/)>).
+- Frontend using [Create React App](https://reactjs.org/docs/create-a-new-react-app.html).
 
 ## Technologies used
 
@@ -42,8 +42,8 @@ The `anon` key is your client-side API key. It allows "anonymous access" to your
 Create a file in this folder `.env.local`
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
+REACT_APP_SUPABASE_URL=
+REACT_APP_SUPABASE_ANON_KEY=
 ```
 
 Populate this file with your URL and Key.
