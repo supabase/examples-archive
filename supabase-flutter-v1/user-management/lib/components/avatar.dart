@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:supabase_quickstart/utils/constants.dart';
 
 class Avatar extends StatefulWidget {
   const Avatar({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.onUpload,
-  }) : super(key: key);
+  });
 
   final String? imageUrl;
   final void Function(String) onUpload;
@@ -48,8 +49,8 @@ class _AvatarState extends State<Avatar> {
   }
 
   Future<void> _upload() async {
-    final _picker = ImagePicker();
-    final imageFile = await _picker.pickImage(
+    final picker = ImagePicker();
+    final imageFile = await picker.pickImage(
       source: ImageSource.gallery,
       maxWidth: 300,
       maxHeight: 300,
@@ -63,18 +64,21 @@ class _AvatarState extends State<Avatar> {
     final fileExt = imageFile.path.split('.').last;
     final fileName = '${DateTime.now().toIso8601String()}.$fileExt';
     final filePath = fileName;
-    final response =
-        await supabase.storage.from('avatars').uploadBinary(filePath, bytes);
+    try {
+      await supabase.storage.from('avatars').uploadBinary(filePath, bytes);
+      final imageUrlResponse =
+          supabase.storage.from('avatars').getPublicUrl(filePath);
+      widget.onUpload(imageUrlResponse);
+    } on StorageException catch (error) {
+      if (mounted) {
+        context.showErrorSnackBar(message: error.message);
+      }
+    } catch (error) {
+      if (mounted) {
+        context.showErrorSnackBar(message: 'Unexpected error occured');
+      }
+    }
 
     setState(() => _isLoading = false);
-
-    final error = response.error;
-    if (error != null) {
-      context.showErrorSnackBar(message: error.message);
-      return;
-    }
-    final imageUrlResponse =
-        supabase.storage.from('avatars').getPublicUrl(filePath);
-    widget.onUpload(imageUrlResponse.data!);
   }
 }

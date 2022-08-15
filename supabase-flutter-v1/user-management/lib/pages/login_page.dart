@@ -1,17 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:supabase/supabase.dart';
-import 'package:supabase_quickstart/components/auth_state.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'package:supabase_quickstart/utils/constants.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends AuthState<LoginPage> {
+class _LoginPageState extends State<LoginPage> {
   bool _isLoading = false;
   late final TextEditingController _emailController;
 
@@ -19,18 +19,22 @@ class _LoginPageState extends AuthState<LoginPage> {
     setState(() {
       _isLoading = true;
     });
-    final response = await supabase.auth.signIn(
+    try {
+      await supabase.auth.signIn(
         email: _emailController.text,
-        options: AuthOptions(
-            redirectTo: kIsWeb
-                ? null
-                : 'io.supabase.flutterquickstart://login-callback/'));
-    final error = response.error;
-    if (error != null) {
+        options: const AuthOptions(
+          redirectTo:
+              kIsWeb ? null : 'io.supabase.flutterquickstart://login-callback/',
+        ),
+      );
+      if (mounted) {
+        context.showSnackBar(message: 'Check your email for login link!');
+        _emailController.clear();
+      }
+    } on GoTrueException catch (error) {
       context.showErrorSnackBar(message: error.message);
-    } else {
-      context.showSnackBar(message: 'Check your email for login link!');
-      _emailController.clear();
+    } catch (error) {
+      context.showErrorSnackBar(message: 'Unexpected error occured');
     }
 
     setState(() {
