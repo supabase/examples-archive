@@ -13,13 +13,15 @@ export default function Home() {
       return data
     }
 
-    fetchData()
+    if (!session) {
+      fetchData()
       .then(({ session }) => {
         setSession(session)
       })
       .catch((error) => {
         console.log(error)
       })
+    }
 
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)

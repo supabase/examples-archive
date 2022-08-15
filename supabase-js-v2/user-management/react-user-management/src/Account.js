@@ -31,7 +31,7 @@ export default function Account({ session }) {
       setWebsite(data.website)
       setAvatarUrl(data.avatar_url)
     } catch (error) {
-      alert(error.message)
+      console.warn(error.message)
     } finally {
       setLoading(false)
     }
@@ -40,7 +40,7 @@ export default function Account({ session }) {
   async function updateProfile({ username, website, avatar_url }) {
     try {
       setLoading(true)
-      const user = supabase.auth.user()
+      const { user } = await supabase.auth.getUser()
 
       const updates = {
         id: user.id,
@@ -50,9 +50,7 @@ export default function Account({ session }) {
         updated_at: new Date(),
       }
 
-      let { error } = await supabase.from('profiles').upsert(updates, {
-        returning: 'minimal', // Don't return the value after inserting
-      })
+      let { error } = await supabase.from('profiles').upsert(updates)
 
       if (error) {
         throw error
