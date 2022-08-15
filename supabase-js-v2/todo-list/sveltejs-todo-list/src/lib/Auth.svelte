@@ -38,7 +38,7 @@
   };
 </script>
 
-<form
+<div
   class="w-full h-full sm:h-auto sm:w-2/5 max-w-sm p-5 bg-white shadow flex flex-col text-base"
 >
   <span
@@ -132,4 +132,4 @@
       </div>
     </div>
   </div>
-</form>
+</div>
