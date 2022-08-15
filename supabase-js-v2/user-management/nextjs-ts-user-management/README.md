@@ -31,7 +31,7 @@ Sign up to Supabase - [https://app.supabase.com](https://app.supabase.com) and c
 
 ### 2. Run "User Management" Quickstart
 
-Once your database has started, run the "User Management Starter" quickstart. Inside of your project, enter the `SQL editor` tab and scroll down until you see `User Management Starter: Set up a Public Profiles table which you can access with your API`.
+Once your database has started, head over to your project's `SQL Editor` and run the "User Management Starter" quickstart. On the `SQL editor` page, scroll down until you see `User Management Starter: Sets up a public Profiles table which you can access with your API`. Click that, then click `RUN` to execute that query and create a new `profiles` table. When that's finished, head over to the `Table Editor` and see your new `profiles` table.
 
 ### 3. Get the URL and Key
 
