@@ -7,7 +7,8 @@
 - supabase-flutter-v1 examples
 
 # Deprecated
-- supabase-js-v1 - Supabase
+- supabase-js-v1 - examples
+- supabase-flutter-v0 examples
 ```
 
 
