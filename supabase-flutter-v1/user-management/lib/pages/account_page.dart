@@ -13,7 +13,6 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   final _usernameController = TextEditingController();
   final _websiteController = TextEditingController();
-  String? _userId;
   String? _avatarUrl;
   var _loading = false;
 
@@ -89,10 +88,14 @@ class _AccountPageState extends State<AccountPage> {
   /// Called when image has been uploaded to Supabase storage from within Avatar widget
   Future<void> _onUpload(String imageUrl) async {
     try {
+      final userId = supabase.auth.currentUser!.id;
       await supabase.from('profiles').upsert({
-        'id': _userId,
+        'id': userId,
         'avatar_url': imageUrl,
       });
+      if (mounted) {
+        context.showSnackBar(message: 'Updated your profile image!');
+      }
     } on PostgrestException catch (error) {
       context.showErrorSnackBar(message: error.message);
     } catch (error) {
@@ -105,7 +108,6 @@ class _AccountPageState extends State<AccountPage> {
     setState(() {
       _avatarUrl = imageUrl;
     });
-    context.showSnackBar(message: 'Updated your profile image!');
   }
 
   @override

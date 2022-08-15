@@ -60,14 +60,19 @@ class _AvatarState extends State<Avatar> {
     }
     setState(() => _isLoading = true);
 
-    final bytes = await imageFile.readAsBytes();
-    final fileExt = imageFile.path.split('.').last;
-    final fileName = '${DateTime.now().toIso8601String()}.$fileExt';
-    final filePath = fileName;
     try {
-      await supabase.storage.from('avatars').uploadBinary(filePath, bytes);
-      final imageUrlResponse =
-          supabase.storage.from('avatars').getPublicUrl(filePath);
+      final bytes = await imageFile.readAsBytes();
+      final fileExt = imageFile.path.split('.').last;
+      final fileName = '${DateTime.now().toIso8601String()}.$fileExt';
+      final filePath = fileName;
+      await supabase.storage.from('avatars').uploadBinary(
+            filePath,
+            bytes,
+            fileOptions: FileOptions(contentType: imageFile.mimeType),
+          );
+      final imageUrlResponse = await supabase.storage
+          .from('avatars')
+          .createSignedUrl(filePath, 60 * 60 * 24 * 365 * 10);
       widget.onUpload(imageUrlResponse);
     } on StorageException catch (error) {
       if (mounted) {
