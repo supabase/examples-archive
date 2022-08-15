@@ -405,7 +405,7 @@ packages:
       name: supabase_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0-dev.3"
+    version: "1.0.0-dev.4"
   term_glyph:
     dependency: transitive
     description:

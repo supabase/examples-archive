@@ -13,6 +13,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isLoading = false;
+  bool _redirecting = false;
   late final TextEditingController _emailController;
 
   Future<void> _signIn() async {
@@ -45,6 +46,13 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     _emailController = TextEditingController();
+    supabase.auth.onAuthStateChange((event, session) {
+      if (_redirecting) return;
+      if (session != null) {
+        _redirecting = true;
+        Navigator.of(context).pushReplacementNamed('/account');
+      }
+    });
     super.initState();
   }
 

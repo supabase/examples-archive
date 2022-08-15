@@ -16,10 +16,12 @@ class _SplashPageState extends State<SplashPage> {
     _redirect();
   }
 
-  void _redirect() {
-    if (_redicrectCalled) {
+  Future<void> _redirect() async {
+    await Future.delayed(Duration.zero);
+    if (_redicrectCalled || !mounted) {
       return;
     }
+
     _redicrectCalled = true;
     final session = supabase.auth.currentSession;
     if (session != null) {

@@ -5,12 +5,11 @@ import 'package:supabase_quickstart/pages/login_page.dart';
 import 'package:supabase_quickstart/pages/splash_page.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
   await Supabase.initialize(
     // TODO: Replace credentials with your own
-    url: 'YOUR_SUPABASE_URL',
-    anonKey: 'YOUR_SUPABASE_ANNON_KEY',
+    url: 'https://ualrvfiametspbkkntpo.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhbHJ2ZmlhbWV0c3Bia2tudHBvIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTk1ODU0MDIsImV4cCI6MTk3NTE2MTQwMn0.sMZmPO3ZKRK2-4J6SBc2k9ymoGYQPY7DxyYXxychX8I',
   );
   runApp(MyApp());
 }

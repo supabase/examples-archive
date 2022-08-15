@@ -81,6 +81,9 @@ class _AccountPageState extends State<AccountPage> {
     } catch (error) {
       context.showErrorSnackBar(message: 'Unexpected error occured');
     }
+    if (mounted) {
+      Navigator.of(context).pushReplacementNamed('/');
+    }
   }
 
   /// Called when image has been uploaded to Supabase storage from within Avatar widget
