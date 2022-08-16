@@ -1,9 +1,9 @@
-import { useState, useEffect, ChangeEvent } from "react";
-import { supabase } from "../lib/supabaseClient";
-import UploadButton from "../components/UploadButton";
-import Avatar from "./Avatar";
-import { AuthSession } from "@supabase/supabase-js";
-import { DEFAULT_AVATARS_BUCKET, Profile } from "../lib/constants";
+import { useState, useEffect, ChangeEvent } from 'react';
+import { supabase } from '../lib/supabaseClient';
+import UploadButton from '../components/UploadButton';
+import Avatar from './Avatar';
+import { AuthSession } from '@supabase/supabase-js';
+import { DEFAULT_AVATARS_BUCKET, Profile } from '../lib/constants';
 
 export default function Account({ session }: { session: AuthSession }) {
   const [loading, setLoading] = useState<boolean>(true);
@@ -18,7 +18,7 @@ export default function Account({ session }: { session: AuthSession }) {
 
   async function signOut() {
     const { error } = await supabase.auth.signOut();
-    if (error) console.log("Error logging out:", error.message);
+    if (error) console.log('Error logging out:', error.message);
   }
 
   async function uploadAvatar(event: ChangeEvent<HTMLInputElement>) {
@@ -26,25 +26,25 @@ export default function Account({ session }: { session: AuthSession }) {
       setUploading(true);
 
       if (!event.target.files || event.target.files.length == 0) {
-        throw "You must select an image to upload.";
+        throw 'You must select an image to upload.';
       }
 
-      const { user } = await supabase.auth.getUser();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       const file = event.target.files[0];
-      const fileExt = file.name.split(".").pop();
+      const fileExt = file.name.split('.').pop();
       const fileName = `${session?.user.id}${Math.random()}.${fileExt}`;
       const filePath = `${fileName}`;
 
-      let { error: uploadError } = await supabase.storage
-        .from(DEFAULT_AVATARS_BUCKET)
-        .upload(filePath, file);
+      let { error: uploadError } = await supabase.storage.from(DEFAULT_AVATARS_BUCKET).upload(filePath, file);
 
       if (uploadError) {
         throw uploadError;
       }
 
-      let { error: updateError } = await supabase.from("profiles").upsert({
-        id: user!.id,
+      let { error: updateError } = await supabase.from('profiles').upsert({
+        id: session?.user.id,
         avatar_url: filePath,
       });
 
@@ -72,12 +72,14 @@ export default function Account({ session }: { session: AuthSession }) {
   async function getProfile() {
     try {
       setLoading(true);
-      const { user } = await supabase.auth.getUser();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
       let { data, error } = await supabase
-        .from("profiles")
+        .from('profiles')
         .select(`username, website, avatar_url, updated_at, id`)
-        .eq("id", user!.id)
+        .eq('id', session?.user.id)
         .single();
 
       if (error) {
@@ -87,7 +89,7 @@ export default function Account({ session }: { session: AuthSession }) {
       if (data) setProfile(data);
     } catch (error) {
       if (error instanceof Error) {
-        console.log("error", error.message);
+        console.log('error', error.message);
       }
     } finally {
       setLoading(false);
@@ -97,16 +99,18 @@ export default function Account({ session }: { session: AuthSession }) {
   async function updateProfile() {
     try {
       setLoading(true);
-      const { user } = await supabase.auth.getUser();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
       const updates = {
-        id: user!.id,
+        id: session?.user.id,
         username,
         website,
         updated_at: new Date(),
       };
 
-      let { error } = await supabase.from("profiles").upsert(updates, {});
+      let { error } = await supabase.from('profiles').upsert(updates, {});
 
       if (error) {
         throw error;
@@ -125,13 +129,7 @@ export default function Account({ session }: { session: AuthSession }) {
       <div>
         <label htmlFor="avatar">Avatar image</label>
         <div className="avatarField">
-          <div className="avatarContainer">
-            {avatar ? (
-              <Avatar url={avatar} size={35} />
-            ) : (
-              <div className="avatarPlaceholder">?</div>
-            )}
-          </div>
+          <div className="avatarContainer">{avatar ? <Avatar url={avatar} size={35} /> : <div className="avatarPlaceholder">?</div>}</div>
           <UploadButton onUpload={uploadAvatar} loading={uploading} />
         </div>
       </div>
@@ -141,30 +139,16 @@ export default function Account({ session }: { session: AuthSession }) {
       </div>
       <div>
         <label htmlFor="username">Name</label>
-        <input
-          id="username"
-          type="text"
-          value={username || ""}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+        <input id="username" type="text" value={username || ''} onChange={(e) => setUsername(e.target.value)} />
       </div>
       <div>
         <label htmlFor="website">Website</label>
-        <input
-          id="website"
-          type="website"
-          value={website || ""}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
+        <input id="website" type="website" value={website || ''} onChange={(e) => setWebsite(e.target.value)} />
       </div>
 
       <div>
-        <button
-          className="button primary block"
-          onClick={() => updateProfile()}
-          disabled={loading}
-        >
-          {loading ? "Loading ..." : "Update"}
+        <button className="button primary block" onClick={() => updateProfile()} disabled={loading}>
+          {loading ? 'Loading ...' : 'Update'}
         </button>
       </div>
 
