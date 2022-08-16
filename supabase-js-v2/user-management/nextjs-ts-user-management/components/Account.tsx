@@ -29,7 +29,7 @@ export default function Account({ session }: { session: AuthSession }) {
         throw "You must select an image to upload.";
       }
 
-      const { user } = await supabase.auth.getUser();
+      const { user } = session;
       const file = event.target.files[0];
       const fileExt = file.name.split(".").pop();
       const fileName = `${session?.user.id}${Math.random()}.${fileExt}`;
@@ -72,7 +72,7 @@ export default function Account({ session }: { session: AuthSession }) {
   async function getProfile() {
     try {
       setLoading(true);
-      const { user } = await supabase.auth.getUser();
+      const { user } = session;
 
       let { data, error } = await supabase
         .from("profiles")
@@ -97,7 +97,7 @@ export default function Account({ session }: { session: AuthSession }) {
   async function updateProfile() {
     try {
       setLoading(true);
-      const { user } = await supabase.auth.getUser();
+      const { user } = session;
 
       const updates = {
         id: user!.id,
