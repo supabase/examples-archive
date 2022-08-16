@@ -9,12 +9,9 @@
     "web": "expo start --web",
     "format": "prettier --write \"**/*.{js,json,md,ts,tsx,jsx,css}\""
   },
-  "overrides": {
-    "@supabase/gotrue-js": "1.23.0-next.19"
-  },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.9",
-    "@supabase/supabase-js": "^1.36.0-next.23",
+    "@supabase/supabase-js": "^1.36.0-next.25",
     "expo": "~46.0.7",
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
