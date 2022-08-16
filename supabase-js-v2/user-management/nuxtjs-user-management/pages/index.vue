@@ -28,7 +28,7 @@ export default {
     };
   },
   mounted() {
-    supabase.auth.getSession().then(({ session }) => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
       this.state.session = session;
     });
 

@@ -13,7 +13,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await supabase.auth.getSession();
+      const { data } = await supabase.auth.getSession();
       return data;
     };
 

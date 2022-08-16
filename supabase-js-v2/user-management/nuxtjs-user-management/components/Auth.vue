@@ -43,7 +43,6 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      console.log("ENV", process.env.NUXT_PUBLIC_SUPABASE_URL);
       try {
         this.formValues.loader = true;
         const { error, data: { user } } = await supabase.auth.signInWithOtp({
