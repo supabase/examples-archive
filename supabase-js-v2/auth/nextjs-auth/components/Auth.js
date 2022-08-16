@@ -53,7 +53,7 @@ function Auth(props) {
     setError('')
     setMessage('')
     setLoading(true)
-    const { error } = await supabaseClient.auth.signIn({ email })
+    const { error } = await supabaseClient.auth.signInWithPasswordless({ email })
     if (error) setError(error.message)
     else setMessage('Check your email for the magic link')
     setLoading(false)
