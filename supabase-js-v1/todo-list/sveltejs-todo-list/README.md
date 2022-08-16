@@ -1,77 +1,48 @@
-# Sveltejs todo with TailwindCSS - Snowpack, Backend Supabase
+# Svelte + Vite
 
-## Deploy your own
+This template should help get you started developing with Svelte in Vite.
 
-### 1. Create new project
+## Recommended IDE Setup
 
-Sign up to Supabase - [https://app.supabase.com](https://app.supabase.com) and create a new project. Wait for your database to start.
+[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
 
-## 2. configure .env
+## Need an official Svelte framework?
 
+Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+
+## Technical considerations
+
+**Why use this over SvelteKit?**
+
+- It brings its own routing solution which might not be preferable for some users.
+- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+  `vite dev` and `vite build` wouldn't work in a SvelteKit environment, for example.
+
+This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+
+Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+
+**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+
+Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+
+**Why include `.vscode/extensions.json`?**
+
+Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
+
+**Why enable `checkJs` in the JS template?**
+
+It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
+
+**Why is HMR not preserving my local component state?**
+
+HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
+
+If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
+
+```js
+// store.js
+// An extremely simple external store
+import { writable } from 'svelte/store'
+export default writable(0)
 ```
-cat <<EOF >>.env
-SNOWPACK_PUBLIC_SUPABASE_URL=https://yoururl.supabase.io
-SNOWPACK_PUBLIC_SUPABASE_KEY=your-anon-key
-EOF
-```
-
-## 3. create db
-
-run db/task_list_schema.sql
-
-## 4. test you have DB
-
-Run with your service key (not the anon key)
-
-`make test-db`
-
-## 5. Create a user
-
-add to .env temporary user and password
-
-```
-cat <<EOF >>.env
-SNOWPACK_PUBLIC_PASSWORD=
-SNOWPACK_PUBLIC_USER=email@zyx.com
-EOF
-```
-
-`make signup`
-
-## 6. Login as that user
-
-`$ make login`
-
-### 7. Deploy the SvelteJS client
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fsupabase%2Fsupabase%2Ftree%2Fmaster%2Fexamples%2todo-list%2Fsveltejs-todo&env=SNOWPACK_PUBLIC_SUPABASE_URL,SNOWPACK_PUBLIC_SUPABASE_KEY&envDescription=Find%20the%20Supabase%20URL%20and%20key%20in%20the%20your%20auto-generated%20docs%20at%20app.supabase.com&project-name=supabase-sveltejs-todo&repo-name=supabase-sveltejs-todo)
-
-You will be asked for a `SNOWPACK__PUBLIC_SUPABASE_URL` and `SNOWPACK__PUBLIC_SUPABASE_KEY`. Use the API URL and `anon` key from [step 2](#2.-configure-.env).
-
-> ✨ Bootstrapped with Create Snowpack App (CSA).
-
-## Available Scripts
-
-### npm start
-
-Runs the app in the development mode.
-Open http://localhost:8080 to view it in the browser.
-
-The page will reload if you make edits.
-You will also see any lint errors in the console.
-
-### npm test
-
-Launches the test runner in the interactive watch mode.
-See the section about running tests for more information.
-
-### npm run build
-
-Builds a static copy of your site to the `build/` folder.
-Your app is ready to be deployed!
-
-**For the best production performance:** Add a build bundler plugin like "@snowpack/plugin-webpack" or "@snowpack/plugin-parcel" to your `snowpack.config.json` config file.
-
-### Q: What about Eject?
-
-No eject needed! Snowpack guarantees zero lock-in, and CSA strives for the same.
