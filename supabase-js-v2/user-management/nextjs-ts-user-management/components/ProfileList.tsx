@@ -38,13 +38,16 @@ export default function ProfileList({ profiles }: ProfileListProps) {
   const [state, dispatch] = useReducer(handleDatabaseEvent, initialState)
 
   useEffect(() => {
-    const subscription = supabase
+    supabase
       .channel('subscription', {})
       .on('realtime', { event: '*', schema: 'public', table: 'profiles' }, () => {})
       .subscribe()
 
     return () => {
-      if (subscription) supabase.removeChannel(subscription)
+      supabase
+        .channel('subscription', {})
+        .on('realtime', { event: '*', schema: 'public', table: 'profiles' }, () => {})
+        .unsubscribe()
     }
   }, [])
 
