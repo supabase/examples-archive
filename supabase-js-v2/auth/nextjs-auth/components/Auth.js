@@ -14,7 +14,7 @@ function Auth(props) {
     setError('')
     setLoading(true)
 
-    const { error: signInError } = await supabaseClient.auth.signIn({
+    const { error: signInError } = await supabaseClient.auth.signInWithPassword({
       email,
       password,
     })
@@ -42,7 +42,8 @@ function Auth(props) {
     setError('')
     setMessage('')
     setLoading(true)
-    const { error } = await supabaseClient.auth.api.resetPasswordForEmail(email)
+    // TODO(Joel): Check this again when re-insertedi n v2
+    const { error } = await supabaseClient.auth.admin.resetPasswordForEmail(email)
     if (error) setError(error.message)
     else setMessage('Check your email for the password reset link')
     setLoading(false)
@@ -53,7 +54,7 @@ function Auth(props) {
     setError('')
     setMessage('')
     setLoading(true)
-    const { error } = await supabaseClient.auth.signInWithPasswordless({ email })
+    const { error } = await supabaseClient.auth.signInWithOtp({ email })
     if (error) setError(error.message)
     else setMessage('Check your email for the magic link')
     setLoading(false)
@@ -178,6 +179,7 @@ function UpdatePassword({ supabaseClient }) {
     setError('')
     setMessage('')
     setLoading(true)
+    // TODO(Joel): Update so that there's a redirec for user to reauthenticate
     const { error } = await supabaseClient.auth.update({ password })
     if (error) setError(error.message)
     else setMessage('Your password has been updated')

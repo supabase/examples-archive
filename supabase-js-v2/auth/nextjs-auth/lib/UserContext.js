@@ -8,7 +8,7 @@ export const UserContextProvider = (props) => {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    const session = supabaseClient.auth.session()
+    const session = supabaseClient.auth.session
     setSession(session)
     setUser(session?.user ?? null)
     const { data: authListener } = supabaseClient.auth.onAuthStateChange(async (event, session) => {
