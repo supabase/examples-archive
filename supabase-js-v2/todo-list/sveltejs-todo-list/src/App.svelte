@@ -8,7 +8,7 @@
   let user: User;
 
   onMount(() => {
-    supabase.auth.getSession().then(({ session }) => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
       user = session?.user ?? null;
     });
 
