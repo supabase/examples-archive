@@ -1,5 +1,6 @@
 import { AuthSession } from '@supabase/supabase-js'
 import { Component, createEffect, createSignal } from 'solid-js'
+import Avatar from './Avatar'
 import { supabase } from './supabaseClient'
 
 interface Props {
@@ -57,7 +58,7 @@ const Account: Component<Props> = ({ session }) => {
         username: username(),
         website: website(),
         avatar_url: avatarUrl(),
-        updated_at: new Date(),
+        updated_at: (new Date()).toISOString(),
       }
 
       let { error } = await supabase.from('profiles').upsert(updates)
@@ -76,47 +77,51 @@ const Account: Component<Props> = ({ session }) => {
 
 	return (
 		<div aria-live="polite">
-      {loading() ? (
-        'Saving ...'
-      ) : (
-        <form onSubmit={updateProfile} class="form-widget">
-          <div>Email: {session.user.email}</div>
-          <div>
-            <label for="username">Name</label>
-            <input
-              id="username"
-              type="text"
-              value={username() || ''}
-              onChange={(e) => setUsername(e.currentTarget.value)}
-            />
-          </div>
-          <div>
-            <label for="website">Website</label>
-            <input
-              id="website"
-              type="text"
-              value={website() || ''}
-              onChange={(e) => setWebsite(e.currentTarget.value)}
-            />
-          </div>
-          <div>
-            <button
-              type="submit"
-              class="button primary block"
-              disabled={loading()}
-            >
-              Update profile
-            </button>
-          </div>
-        </form>
-      )}
-      <button
-        type="button"
-        class="button block"
-        onClick={() => supabase.auth.signOut()}
-      >
-        Sign Out
-      </button>
+			<form onSubmit={updateProfile} class="form-widget">
+				<Avatar 
+					url={avatarUrl()} 
+					size={150} 
+					onUpload={(e: Event, url: string) => {
+						setAvatarUrl(url)
+						updateProfile(e)
+					}} 
+				/>
+				<div>Email: {session.user.email}</div>
+				<div>
+					<label for="username">Name</label>
+					<input
+						id="username"
+						type="text"
+						value={username() || ''}
+						onChange={(e) => setUsername(e.currentTarget.value)}
+					/>
+				</div>
+				<div>
+					<label for="website">Website</label>
+					<input
+						id="website"
+						type="text"
+						value={website() || ''}
+						onChange={(e) => setWebsite(e.currentTarget.value)}
+					/>
+				</div>
+				<div>
+					<button
+						type="submit"
+						class="button primary block"
+						disabled={loading()}
+					>
+						{loading() ? 'Saving ...' : 'Update profile' }
+					</button>
+				</div>
+				<button
+					type="button"
+					class="button block"
+					onClick={() => supabase.auth.signOut()}
+				>
+					Sign Out
+				</button>
+			</form>
     </div>
 	)
 }

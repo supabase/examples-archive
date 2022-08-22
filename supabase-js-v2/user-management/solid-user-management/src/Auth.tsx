@@ -29,10 +29,8 @@ const Auth: Component = () => {
         <p class="description">
           Sign in via magic link with your email below
         </p>
-        {loading() ? (
-          'Sending magic link...'
-        ) : (
-          <form onSubmit={handleLogin}>
+        <form class="form-widget" onSubmit={handleLogin}>
+          <div>
             <label for="email">Email</label>
             <input
               id="email"
@@ -42,11 +40,13 @@ const Auth: Component = () => {
               value={email()}
               onChange={(e) => setEmail(e.currentTarget.value)}
             />
+          </div>
+          <div>  
             <button type="submit" class="button block" aria-live="polite">
-              Send magic link
+              {loading() ? <span>Loading</span> : <span>Send magic link</span>}
             </button>
-          </form>
-        )}
+          </div>
+        </form>
       </div>
     </div>
 	)
