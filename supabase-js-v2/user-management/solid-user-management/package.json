@@ -1,6 +1,6 @@
 {
-  "name": "vite-template-solid",
-  "version": "0.0.0",
+  "name": "solidjs-user-management",
+  "version": "0.2.0",
   "description": "",
   "scripts": {
     "start": "vite",
@@ -15,7 +15,7 @@
     "vite-plugin-solid": "^2.3.0"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.0.0-rc.3",
+    "@supabase/supabase-js": "^2.0.0-rc.4",
     "solid-js": "^1.4.7"
   }
 }
