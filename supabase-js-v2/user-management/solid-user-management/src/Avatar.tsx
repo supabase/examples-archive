@@ -60,8 +60,6 @@ const Avatar: Component<Props> = (props) => {
 		}
 	}
 
-	console.log(props.size)
-
 	return (
 		<div style={{ width: props.size }} aria-live="polite">
 			{avatarUrl() ? (
