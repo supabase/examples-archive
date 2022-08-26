@@ -68,12 +68,12 @@
       src={avatarUrl}
       alt={avatarUrl ? 'Avatar' : 'No image'}
       class="avatar image"
-      style="height: {size}px, width: {size}px"
+      style="height: {size}px; width: {size}px"
     />
   {:else}
     <div
       class="avatar no-image"
-      style="height: {size}px, width: {size}px"
+      style="height: {size}px; width: {size}px"
     />
   {/if}
   <div style="width: {size}px">
