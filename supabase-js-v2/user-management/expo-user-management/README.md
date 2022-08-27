@@ -34,6 +34,14 @@ Install the dependencies:
 npm install
 ```
 
+### 4a. For file picker
+
+In order to get the file picker to work you must first prebuild the project before running it.
+
+```bash
+expo prebuild
+```
+
 ### 5. Run the application
 
 Run the application: `npm start`.
