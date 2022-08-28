@@ -14,8 +14,8 @@
 </template>
 
 <script setup>
-const props = defineProps(['path'])
-const { path } = toRefs(props)
+const props = defineProps(['path', 'size'])
+const { path, size } = toRefs(props)
 
 const emit = defineEmits(['update:path', 'upload'])
 
@@ -45,8 +45,7 @@ const uploadAvatar = async (evt) => {
         }
         const file = files.value[0]
         const fileExt = file.name.split(".").pop()
-        const fileName = `${Math.random()}.${fileExt}`
-        const filePath = `${fileName}`
+        const filePath = `${Math.random()}.${fileExt}`
         let { error: uploadError } = await supabase.storage
             .from("avatars")
             .upload(filePath, file)

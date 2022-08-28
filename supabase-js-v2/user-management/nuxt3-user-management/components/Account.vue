@@ -1,6 +1,6 @@
 <template>
     <form class="form-widget" @submit.prevent="updateProfile">
-        <Avatar v-model:path="avatar_path" @upload="updateProfile" />
+        <Avatar v-model:path="avatar_path" @upload="updateProfile" :size="150" />
         <div>
             <label for="email">Email</label>
             <input id="email" type="text" :value="user.email" disabled />
@@ -20,7 +20,7 @@
         </div>
 
         <div>
-            <button class="button block" @click="signOut" :disabled="loading">
+            <button type="button" class="button block" @click="signOut">
                 Sign Out
             </button>
         </div>
@@ -28,6 +28,7 @@
 </template>
 
 <script setup>
+const router = useRouter()
 const supabase = useSupabaseClient()
 
 const loading = ref(true)
@@ -35,20 +36,24 @@ const username = ref('')
 const website = ref('')
 const avatar_path = ref('')
 
-
-loading.value = true
 const user = useUser();
-let { data } = await supabase
-    .from('profiles')
-    .select(`username, website, avatar_url`)
-    .eq('id', user.value.id)
-    .single()
-if (data) {
-    username.value = data.username
-    website.value = data.website
-    avatar_path.value = data.avatar_url
+const { data: profile } = await useAsyncData('profile', async () => {
+    loading.value = true
+    const { data } = await supabase
+        .from('profiles')
+        .select(`username, website, avatar_url`)
+        .eq('id', user.value.id)
+        .single()
+
+    loading.value = false
+    return data
+})
+
+if (profile.value.username) {
+    username.value = profile.value.username
+    website.value = profile.value.website
+    avatar_path.value = profile.value.avatar_url
 }
-loading.value = false
 
 async function updateProfile() {
     try {
@@ -61,9 +66,7 @@ async function updateProfile() {
             avatar_url: avatar_path.value,
             updated_at: new Date(),
         }
-        let { error } = await supabase.from('profiles').upsert(updates, {
-            returning: 'minimal', // Don't return the value after inserting
-        })
+        let { error } = await supabase.from('profiles').upsert(updates)
         if (error) throw error
     } catch (error) {
         alert(error.message)

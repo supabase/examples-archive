@@ -6,14 +6,6 @@
 </template>
 
 <script setup>
-
-const supabase = useSupabaseClient()
-
 const user = useUser();
-
 user.value = useSupabaseUser()
-supabase.auth.onAuthStateChange((_, session) => {
-    user.value = session?.user
-})
-
 </script>
