@@ -22,8 +22,6 @@ export default function Account({ session }: { session: AuthSession }) {
   }
 
   async function uploadAvatar(event: ChangeEvent<HTMLInputElement>) {
-    console.log('test')
-
     try {
       setUploading(true)
 
