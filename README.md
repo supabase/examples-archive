@@ -16,7 +16,7 @@ Tasks:
 
 - [x] Migrate the current examples into this repo
 - [x] Update the homepage "Examples" section to point to this repo
-- [ ] Update app.supabase.com examples
+- [x] Update app.supabase.com examples
 - [x] Update the links in our docs: https://supabase.com/docs/guides/examples
 - [ ] Remove the old /supabase/examples folder
 - [ ] Recreate the supabase-js-v2 user-managemet examples
