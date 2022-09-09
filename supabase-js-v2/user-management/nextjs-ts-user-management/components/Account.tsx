@@ -160,7 +160,7 @@ export default function Account({ session }: { session: AuthSession }) {
 
       <div>
         <button className="button primary block" onClick={() => updateProfile()} disabled={loading}>
-          {loading ? 'Loading ...' : 'Update'}
+          {loading ? <img className="loader" src="loader.svg" /> : <span>Update</span>}
         </button>
       </div>
 
