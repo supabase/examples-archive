@@ -6,4 +6,4 @@ This example shows how to use Supabase auth both on the client and server in bot
 
 The Vercel deployment will guide you through creating a Supabase account and project. After installation of the Supabase integration, all relevant environment variables will be set up so that the project is usable immediately after deployment 🚀
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fsupabase%2Fsupabase%2Ftree%2Fmaster%2Fexamples%2Fnextjs-with-supabase-auth&project-name=nextjs-with-supabase-auth&repository-name=nextjs-with-supabase-auth&integration-ids=oac_jUduyjQgOyzev1fjrW83NYOv)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fsupabase%2Fexamples%2Ftree%2Fmain%2Fsupabase-js-v1%2Fnextjs-with-supabase-auth&project-name=nextjs-with-supabase-auth&repository-name=nextjs-with-supabase-auth&integration-ids=oac_jUduyjQgOyzev1fjrW83NYOv)
