@@ -1,6 +1,6 @@
 import { useState, useEffect, ChangeEvent } from 'react'
 import { supabase } from '../lib/supabaseClient'
-import UploadButton from '../components/UploadButton'
+import UploadButton from './UploadButton'
 import Avatar from './Avatar'
 import { AuthSession } from '@supabase/supabase-js'
 import { DEFAULT_AVATARS_BUCKET, Profile } from '../lib/constants'
