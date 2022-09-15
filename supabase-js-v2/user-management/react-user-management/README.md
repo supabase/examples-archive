@@ -50,7 +50,7 @@ Populate this file with your URL and Key.
 
 ### 5. Run the application
 
-Run the application: `npm run dev`. Open your browser to `https://localhost:3000/` and you are ready to go 🚀.
+Run the application: `npm run start`. Open your browser to `https://localhost:3000/` and you are ready to go 🚀.
 
 ## Supabase details
 
