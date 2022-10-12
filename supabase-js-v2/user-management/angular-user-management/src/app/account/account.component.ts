@@ -75,8 +75,6 @@ export class AccountComponent implements OnInit {
       this.loading = true;
       const { user } = this.session;
 
-      console.log({ p: this.updateProfileForm.value });
-
       const username = this.updateProfileForm.value.username as string;
       const website = this.updateProfileForm.value.website as string;
       const avatar_url = this.updateProfileForm.value.avatar_url as string;
