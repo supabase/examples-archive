@@ -1,7 +1,8 @@
 <template>
     <div>
-        <img v-if="src" :src="src" alt="Avatar" class="avatar image" style="width: 10em; height: 10em;" />
-        <div v-else class="avatar no-image" :style="{ height: size, width: size }" />
+        <img v-if="src" :src="src" alt="Avatar" class="avatar image"
+            :style="{ height: size + 'em', width: size + 'em' }" />
+        <div v-else class="avatar no-image" :style="{ height: size + 'em', width: size + 'em' }" />
 
         <div style="width: 10em; position: relative;">
             <label class="button primary block" for="single">

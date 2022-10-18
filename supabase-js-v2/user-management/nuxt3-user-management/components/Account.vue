@@ -1,6 +1,6 @@
 <template>
     <form class="form-widget" @submit.prevent="updateProfile">
-        <Avatar v-model:path="avatar_path" @upload="updateProfile" :size="150" />
+        <Avatar v-model:path="avatar_path" @upload="updateProfile" :size="10" />
         <div>
             <label for="email">Email</label>
             <input id="email" type="text" :value="user.email" disabled />
@@ -28,7 +28,6 @@
 </template>
 
 <script setup>
-const router = useRouter()
 const supabase = useSupabaseClient()
 
 const loading = ref(true)
@@ -36,7 +35,7 @@ const username = ref('')
 const website = ref('')
 const avatar_path = ref('')
 
-const user = useUser();
+const user = useSupabaseUser();
 const { data: profile } = await useAsyncData('profile', async () => {
     loading.value = true
     const { data } = await supabase
@@ -58,7 +57,7 @@ if (profile.value.username) {
 async function updateProfile() {
     try {
         loading.value = true
-        const user = useUser();
+        const user = useSupabaseUser();
         const updates = {
             id: user.value.id,
             username: username.value,
