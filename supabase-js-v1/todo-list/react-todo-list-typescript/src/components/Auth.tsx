@@ -63,7 +63,7 @@ const Auth = () => {
         }
     };
 
-    return REACT_APP_SUPABASE_URL && REACT_APP_SUPABASE_KEY ? (
+    return !(REACT_APP_SUPABASE_URL && REACT_APP_SUPABASE_KEY) ? (
         <p>There is no api key and url</p>
     ) : (
         <div
